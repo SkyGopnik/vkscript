@@ -1,8 +1,15 @@
 <?php
-$token = "";
+$token = "35297d91a4510d25fa0506881de232f4a154e5fec62a58767b50719f58213092846f8533683b254fced36";
 $clubid = "57846937";
-$getFirstPost = by('wall.get?owner_id=-'.$clubid.'&count=1&v=1&access_token='.$token);
-$getPostId = $getFirstPost[1]["id"];
+//does the community have a pin post? \ Есть ли в сообществе закреп true - да, false - нет
+$havepoint = true; // if doesn't change to false \ Если есть напишите false
+if($havepoint) {
+	$getFirstPost = by('wall.get?owner_id=-'.$clubid.'&count=2&v=1&access_token='.$token);
+	$getPostId = $getFirstPost[2]["id"];
+} else {
+	$getFirstPost = by('wall.get?owner_id=-'.$clubid.'&count=1&v=1&access_token='.$token);
+	$getPostId = $getFirstPost[1]["id"];
+}
 $createComment = by('wall.createComment?owner_id=-'.$clubid.'&post_id='.$getPostId
 	.'&message=Первый&v=1&access_token='.$token);
 echo "Post id: ".$getPostId;
